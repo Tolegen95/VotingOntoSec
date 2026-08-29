@@ -1,5 +1,7 @@
 # VotingOntoSec — A Security Ontology for Risk Modeling in Electronic Voting Systems
 
+[![DOI](https://zenodo.org/badge/1350840080.svg)](https://doi.org/10.5281/zenodo.22165395)
+
 Reproducibility package for the paper *"VotingOntoSec: A Security Ontology for
 Risk Modeling in Electronic Voting Systems"* (Scientific Journal of Astana IT University).
 
@@ -7,6 +9,7 @@ Risk Modeling in Electronic Voting Systems"* (Scientific Journal of Astana IT Un
 **License:** CC BY 4.0 (see `LICENSE`)
 **Authors:** T. Aidynov, D. Satybaldina, W. Dimitrov
 **Contact:** tolegen.ch@gmail.com
+**DOI (all versions):** [10.5281/zenodo.22165395](https://doi.org/10.5281/zenodo.22165395) · **v1.0:** [10.5281/zenodo.22165396](https://doi.org/10.5281/zenodo.22165396)
 
 ## Contents
 | File | Description |
@@ -46,3 +49,8 @@ Or open `VotingOntoSec.owl` in Protégé 5.6.1 and run *Reasoner → HermiT → 
 ## Citation
 > T. Aidynov, D. Satybaldina, W. Dimitrov. "VotingOntoSec: A Security Ontology for
 > Risk Modeling in Electronic Voting Systems." Scientific Journal of Astana IT University, 2026.
+
+Software / dataset:
+> T. Aidynov, D. Satybaldina, W. Dimitrov. *VotingOntoSec: A Security Ontology for
+> Risk Modeling in Electronic Voting Systems* (v1.0). Zenodo, 2026.
+> https://doi.org/10.5281/zenodo.22165395

@@ -5,6 +5,14 @@ version: "1.0"
 date-released: "2026-08-29"
 license: CC-BY-4.0
 type: dataset
+doi: 10.5281/zenodo.22165395
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.22165395
+    description: "Concept DOI (all versions)"
+  - type: doi
+    value: 10.5281/zenodo.22165396
+    description: "DOI for version 1.0"
 authors:
   - family-names: Aidynov
     given-names: Tolegen
