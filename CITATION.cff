@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this ontology or reproducibility package, please cite it as below."
+title: "VotingOntoSec: A Security Ontology for Risk Modeling in Electronic Voting Systems"
+version: "1.0"
+date-released: "2026-08-29"
+license: CC-BY-4.0
+type: dataset
+authors:
+  - family-names: Aidynov
+    given-names: Tolegen
+    affiliation: "L.N. Gumilyov Eurasian National University, Astana, Kazakhstan"
+  - family-names: Satybaldina
+    given-names: Dina
+    affiliation: "L.N. Gumilyov Eurasian National University, Astana, Kazakhstan"
+  - family-names: Dimitrov
+    given-names: Willian
+    affiliation: "L.N. Gumilyov Eurasian National University, Astana, Kazakhstan"
+keywords:
+  - security ontology
+  - electronic voting
+  - risk modeling
+  - OWL 2 DL
+  - threat modeling
+  - reproducibility
+repository-code: "https://github.com/Tolegen95/VotingOntoSec"
+preferred-citation:
+  type: article
+  title: "VotingOntoSec: A Security Ontology for Risk Modeling in Electronic Voting Systems"
+  year: 2026
+  journal: "Scientific Journal of Astana IT University"
+  authors:
+    - family-names: Aidynov
+      given-names: Tolegen
+    - family-names: Satybaldina
+      given-names: Dina
+    - family-names: Dimitrov
+      given-names: Willian

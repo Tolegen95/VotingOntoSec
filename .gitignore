@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Generated artifacts
+fig5_heatmap_new.png
+fig6_usecase_new.png
+*.tmp
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

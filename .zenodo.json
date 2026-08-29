@@ -1,0 +1,32 @@
+{
+  "title": "VotingOntoSec: A Security Ontology for Risk Modeling in Electronic Voting Systems",
+  "description": "Reproducibility package for the paper \"VotingOntoSec: A Security Ontology for Risk Modeling in Electronic Voting Systems\" (Scientific Journal of Astana IT University). Includes the OWL 2 DL ontology (RDF/XML), Python scripts to rebuild the ontology with owlready2, run the HermiT reasoner, and reproduce the risk heat map and multi-asset use-case figures.",
+  "upload_type": "dataset",
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "version": "1.0",
+  "language": "eng",
+  "keywords": [
+    "security ontology",
+    "electronic voting",
+    "risk modeling",
+    "OWL 2 DL",
+    "threat modeling",
+    "HermiT reasoner",
+    "reproducibility"
+  ],
+  "creators": [
+    {
+      "name": "Aidynov, Tolegen",
+      "affiliation": "L.N. Gumilyov Eurasian National University, Astana, Kazakhstan"
+    },
+    {
+      "name": "Satybaldina, Dina",
+      "affiliation": "L.N. Gumilyov Eurasian National University, Astana, Kazakhstan"
+    },
+    {
+      "name": "Dimitrov, Willian",
+      "affiliation": "L.N. Gumilyov Eurasian National University, Astana, Kazakhstan"
+    }
+  ]
+}

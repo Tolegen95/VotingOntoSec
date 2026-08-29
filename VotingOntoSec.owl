@@ -1,0 +1,1199 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://enu.kz/ontologies/VotingOntoSec"
+         xmlns="http://enu.kz/ontologies/VotingOntoSec#">
+
+<owl:Ontology rdf:about="http://enu.kz/ontologies/VotingOntoSec"/>
+
+<owl:ObjectProperty rdf:about="#affects">
+  <rdfs:domain rdf:resource="#Threat"/>
+  <rdfs:range rdf:resource="#Asset"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isHarmedBy">
+  <rdfs:domain rdf:resource="#Asset"/>
+  <rdfs:range rdf:resource="#Vulnerability"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#exploits">
+  <rdfs:domain rdf:resource="#Threat"/>
+  <rdfs:range rdf:resource="#Vulnerability"/>
+  <owl:inverseOf rdf:resource="#exploitedBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#exploitedBy">
+  <rdfs:domain rdf:resource="#Vulnerability"/>
+  <rdfs:range rdf:resource="#Threat"/>
+  <owl:inverseOf rdf:resource="#exploits"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#mitigatedBy">
+  <rdfs:domain rdf:resource="#Threat"/>
+  <rdfs:range rdf:resource="#Countermeasure"/>
+  <owl:inverseOf rdf:resource="#mitigates"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#mitigates">
+  <rdfs:domain rdf:resource="#Countermeasure"/>
+  <rdfs:range rdf:resource="#Threat"/>
+  <owl:inverseOf rdf:resource="#mitigatedBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#reduces">
+  <rdfs:domain rdf:resource="#Countermeasure"/>
+  <rdfs:range rdf:resource="#Vulnerability"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#protects">
+  <rdfs:domain rdf:resource="#Countermeasure"/>
+  <rdfs:range rdf:resource="#Asset"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasRisk">
+  <rdfs:domain rdf:resource="#Asset"/>
+  <rdfs:range rdf:resource="#Risk"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#givesRiseTo">
+  <rdfs:domain rdf:resource="#Vulnerability"/>
+  <rdfs:range rdf:resource="#Risk"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#threatens">
+  <rdfs:domain rdf:resource="#Threat"/>
+  <rdfs:range rdf:resource="#SecurityCriteria"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#supports">
+  <rdfs:domain rdf:resource="#Countermeasure"/>
+  <rdfs:range rdf:resource="#SecurityCriteria"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#ownedBy">
+  <rdfs:domain rdf:resource="#Asset"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasSource">
+  <rdfs:domain rdf:resource="#Threat"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#requires">
+  <rdfs:domain rdf:resource="#Asset"/>
+  <rdfs:range rdf:resource="#SecurityCriteria"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#dependsOn">
+  <rdfs:domain rdf:resource="#Asset"/>
+  <rdfs:range rdf:resource="#Asset"/>
+</owl:ObjectProperty>
+
+<owl:DatatypeProperty rdf:about="#hasImpactLevel">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Risk"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#hasLikelihood">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Risk"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#hasAssetCriticality">
+  <rdfs:domain rdf:resource="#Asset"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#hasRiskScore">
+  <rdfs:domain rdf:resource="#Risk"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#hasThreatProbability">
+  <rdfs:domain rdf:resource="#Threat"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#hasCVSS">
+  <rdfs:domain rdf:resource="#Vulnerability"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#hasDescription">
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#hasIdentifier">
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#isQuantumSafe">
+  <rdfs:domain rdf:resource="#Countermeasure"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
+<owl:Class rdf:about="#Asset">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Asset</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Asset</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Threat">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#affects"/>
+      <owl:someValuesFrom rdf:resource="#Asset"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#Vulnerability"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Threat</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Threat</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Vulnerability">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploitedBy"/>
+      <owl:someValuesFrom rdf:resource="#Threat"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vulnerability</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Vulnerability</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Countermeasure">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#Vulnerability"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mitigates"/>
+      <owl:someValuesFrom rdf:resource="#Threat"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Countermeasure</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Countermeasure</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Risk">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Risk</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Risk</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#SecurityCriteria">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SecurityCriteria</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: SecurityCriteria</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Availability">
+  <rdfs:subClassOf rdf:resource="#SecurityCriteria"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Availability</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Availability</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Integrity">
+  <rdfs:subClassOf rdf:resource="#SecurityCriteria"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Integrity</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Integrity</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Confidentiality">
+  <rdfs:subClassOf rdf:resource="#SecurityCriteria"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Confidentiality</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Confidentiality</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#ElectionTransparency">
+  <rdfs:subClassOf rdf:resource="#SecurityCriteria"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ElectionTransparency</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: ElectionTransparency</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#NonDiscrimination">
+  <rdfs:subClassOf rdf:resource="#SecurityCriteria"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NonDiscrimination</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: NonDiscrimination</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#VoterEquality">
+  <rdfs:subClassOf rdf:resource="#SecurityCriteria"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VoterEquality</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: VoterEquality</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#VoterPrivacy">
+  <rdfs:subClassOf rdf:resource="#SecurityCriteria"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VoterPrivacy</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: VoterPrivacy</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#BusinessAsset">
+  <rdfs:subClassOf rdf:resource="#Asset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BusinessAsset</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: BusinessAsset</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#SystemAsset">
+  <rdfs:subClassOf rdf:resource="#Asset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SystemAsset</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: SystemAsset</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#BlockConfirmation">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BlockConfirmation</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: BlockConfirmation</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#BlockGeneration">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BlockGeneration</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: BlockGeneration</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#MiningProcess">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MiningProcess</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: MiningProcess</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#DataProcessing">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DataProcessing</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: DataProcessing</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#DataValidation">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DataValidation</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: DataValidation</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#TransactionValidation">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TransactionValidation</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: TransactionValidation</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Ledger">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ledger</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Ledger</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#GossipingProtocol">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">GossipingProtocol</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: GossipingProtocol</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#NetworkResources">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NetworkResources</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: NetworkResources</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#DigitalAsset">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DigitalAsset</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: DigitalAsset</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#KeyManagement">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">KeyManagement</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: KeyManagement</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#DataProtectionRegulation">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DataProtectionRegulation</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: DataProtectionRegulation</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#VotingOperation">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOperation</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: VotingOperation</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#ActionLog">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ActionLog</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: ActionLog</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#InformationFlow">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">InformationFlow</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: InformationFlow</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Service">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Service</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Service</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Stakeholder">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Stakeholder</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Stakeholder</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#VotingSystem">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingSystem</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: VotingSystem</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Transaction">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Transaction</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Transaction</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#FastTransaction">
+  <rdfs:subClassOf rdf:resource="#BusinessAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FastTransaction</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: FastTransaction</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#VotingData">
+  <rdfs:subClassOf rdf:resource="#SystemAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingData</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: VotingData</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#SpecificVotingData">
+  <rdfs:subClassOf rdf:resource="#SystemAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SpecificVotingData</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: SpecificVotingData</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#VoterData">
+  <rdfs:subClassOf rdf:resource="#SystemAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VoterData</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: VoterData</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Wallet">
+  <rdfs:subClassOf rdf:resource="#SystemAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Wallet</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Wallet</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Credential">
+  <rdfs:subClassOf rdf:resource="#SystemAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Credential</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Credential</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Server">
+  <rdfs:subClassOf rdf:resource="#SystemAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Server</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Server</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#DeviceSetting">
+  <rdfs:subClassOf rdf:resource="#SystemAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DeviceSetting</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: DeviceSetting</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#VotingDevice">
+  <rdfs:subClassOf rdf:resource="#SystemAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingDevice</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: VotingDevice</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#NetworkNode">
+  <rdfs:subClassOf rdf:resource="#SystemAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NetworkNode</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: NetworkNode</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#SmartContract">
+  <rdfs:subClassOf rdf:resource="#SystemAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SmartContract</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: SmartContract</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#CommunicationChannel">
+  <rdfs:subClassOf rdf:resource="#SystemAsset"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CommunicationChannel</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: CommunicationChannel</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#BlockWithholdingDelay">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BlockWithholdingDelay</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: BlockWithholdingDelay</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#DataTampering">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#WeakControlOverVotingRecord"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DataTampering</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: DataTampering</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#DataTheft">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DataTheft</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: DataTheft</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#DeanonymizationAttack">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#NoAnonymizationOfVoter"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DeanonymizationAttack</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: DeanonymizationAttack</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#EclipseAttack">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#PoisoningNodesRoutingTable"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EclipseAttack</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: EclipseAttack</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#EndpointThreat">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EndpointThreat</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: EndpointThreat</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#ManInTheMiddle">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#InsecureCommunicationControl"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ManInTheMiddle</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: ManInTheMiddle</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#ReplayAttack">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#AcceptingUnconfirmedTransaction"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ReplayAttack</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: ReplayAttack</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#VoteManipulation">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VoteManipulation</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: VoteManipulation</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#QuantumComputingThreat">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#NoQuantumSafeCryptography"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">QuantumComputingThreat</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: QuantumComputingThreat</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Repudiation">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Repudiation</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: Repudiation</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#SinglePointFailure">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#RelyingOnCentralizedServer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SinglePointFailure</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: SinglePointFailure</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#SmartContractThreat">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#ErrorProneSmartContract"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SmartContractThreat</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: SmartContractThreat</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#SocialEngineering">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#LackOfAwareness"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SocialEngineering</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: SocialEngineering</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#SybilAttack">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#SybilNodesParticipateInConsensus"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#FakeIdentitiesCreation"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SybilAttack</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: SybilAttack</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#SybilBasedDenialOfService">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SybilBasedDenialOfService</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: SybilBasedDenialOfService</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#TamperingDeviceSetting">
+  <rdfs:subClassOf rdf:resource="#Threat"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exploits"/>
+      <owl:someValuesFrom rdf:resource="#WeakControlsOnVotingDevice"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TamperingDeviceSetting</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: TamperingDeviceSetting</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#FiftyOnePercentAttack">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FiftyOnePercentAttack</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: FiftyOnePercentAttack</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AcceptingUnconfirmedTransaction">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">AcceptingUnconfirmedTransaction</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: AcceptingUnconfirmedTransaction</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#DelayValidBlocksSubmission">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DelayValidBlocksSubmission</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: DelayValidBlocksSubmission</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#ErrorProneAuthenticityOfData">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ErrorProneAuthenticityOfData</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: ErrorProneAuthenticityOfData</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#ErrorProneSmartContract">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ErrorProneSmartContract</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: ErrorProneSmartContract</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#FakeIdentitiesCreation">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FakeIdentitiesCreation</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: FakeIdentitiesCreation</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#ImproperSecurityControlsForDatabase">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ImproperSecurityControlsForDatabase</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: ImproperSecurityControlsForDatabase</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#IneffectiveCryptographicControl">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">IneffectiveCryptographicControl</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: IneffectiveCryptographicControl</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#IneffectiveLogging">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">IneffectiveLogging</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: IneffectiveLogging</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#InsecureCommunicationControl">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">InsecureCommunicationControl</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: InsecureCommunicationControl</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#LackOfAwareness">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LackOfAwareness</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: LackOfAwareness</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#LackOfComputingPower">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LackOfComputingPower</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: LackOfComputingPower</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#LackOfVotingDataAccess">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LackOfVotingDataAccess</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: LackOfVotingDataAccess</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#NetworkAnalysis">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NetworkAnalysis</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: NetworkAnalysis</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#NetworkListening">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NetworkListening</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: NetworkListening</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#NoAnonymizationOfVoter">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NoAnonymizationOfVoter</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: NoAnonymizationOfVoter</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#NoGuaranteeOfVotingRecords">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NoGuaranteeOfVotingRecords</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: NoGuaranteeOfVotingRecords</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#NoProperAuthenticationOfNode">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NoProperAuthenticationOfNode</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: NoProperAuthenticationOfNode</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#NoQuantumSafeCryptography">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NoQuantumSafeCryptography</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: NoQuantumSafeCryptography</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#NotHandlingLargeNumberOfRequestsToServer">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NotHandlingLargeNumberOfRequestsToServer</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: NotHandlingLargeNumberOfRequestsToServer</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#LackOfAuthentication">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LackOfAuthentication</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: LackOfAuthentication</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#WeakEncryption">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WeakEncryption</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: WeakEncryption</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#PoisoningNodesRoutingTable">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PoisoningNodesRoutingTable</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: PoisoningNodesRoutingTable</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#RelyingOnCentralizedServer">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RelyingOnCentralizedServer</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: RelyingOnCentralizedServer</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#RelyingOnThirdParty">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RelyingOnThirdParty</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: RelyingOnThirdParty</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#SybilNodesParticipateInConsensus">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SybilNodesParticipateInConsensus</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: SybilNodesParticipateInConsensus</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#WeakAccessControl">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WeakAccessControl</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: WeakAccessControl</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#WeakControlOverVotingRecord">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WeakControlOverVotingRecord</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: WeakControlOverVotingRecord</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#WeakControlsOnVotingDevice">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WeakControlsOnVotingDevice</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: WeakControlsOnVotingDevice</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#WeakControlToProveDataChangesByAuthorizedUser">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WeakControlToProveDataChangesByAuthorizedUser</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: WeakControlToProveDataChangesByAuthorizedUser</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#WeakTraceabilityControl">
+  <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WeakTraceabilityControl</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: WeakTraceabilityControl</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#HomomorphicEncryption">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#NoAnonymizationOfVoter"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HomomorphicEncryption</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: HomomorphicEncryption</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AnonymityOverlayNetwork">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#NoAnonymizationOfVoter"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">AnonymityOverlayNetwork</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: AnonymityOverlayNetwork</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#ZeroKnowledgeProof">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ZeroKnowledgeProof</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: ZeroKnowledgeProof</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#MixNet">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MixNet</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: MixNet</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#EndToEndEncryption">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#InsecureCommunicationControl"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EndToEndEncryption</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: EndToEndEncryption</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#TLSEncryption">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#InsecureCommunicationControl"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TLSEncryption</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: TLSEncryption</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#MultiFactorAuthentication">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#LackOfAuthentication"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MultiFactorAuthentication</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: MultiFactorAuthentication</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#ProofOfAuthority">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#SybilNodesParticipateInConsensus"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProofOfAuthority</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: ProofOfAuthority</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#IdentityVerification">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#FakeIdentitiesCreation"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">IdentityVerification</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: IdentityVerification</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#FormalVerification">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#ErrorProneSmartContract"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FormalVerification</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: FormalVerification</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#SmartContractAuditing">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#ErrorProneSmartContract"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SmartContractAuditing</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: SmartContractAuditing</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#TamperResistantDevice">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#WeakControlsOnVotingDevice"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TamperResistantDevice</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: TamperResistantDevice</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#BlockchainBasedStorage">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BlockchainBasedStorage</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: BlockchainBasedStorage</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#IntrusionDetection">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">IntrusionDetection</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: IntrusionDetection</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#WebApplicationFirewall">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WebApplicationFirewall</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: WebApplicationFirewall</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#DDoSPreventionService">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DDoSPreventionService</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: DDoSPreventionService</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#PostQuantumCryptography">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#NoQuantumSafeCryptography"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PostQuantumCryptography</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: PostQuantumCryptography</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#VoterAwarenessTraining">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#reduces"/>
+      <owl:someValuesFrom rdf:resource="#LackOfAwareness"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VoterAwarenessTraining</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: VoterAwarenessTraining</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AnonymizationTechnology">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">AnonymizationTechnology</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: AnonymizationTechnology</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#CryptographicProtocol">
+  <rdfs:subClassOf rdf:resource="#Countermeasure"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CryptographicProtocol</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: CryptographicProtocol</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#DataCompromise">
+  <rdfs:subClassOf rdf:resource="#Risk"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DataCompromise</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: DataCompromise</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#LossOfPrivacy">
+  <rdfs:subClassOf rdf:resource="#Risk"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LossOfPrivacy</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: LossOfPrivacy</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AvailabilityAttack">
+  <rdfs:subClassOf rdf:resource="#Risk"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">AvailabilityAttack</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: AvailabilityAttack</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#TransactionManipulation">
+  <rdfs:subClassOf rdf:resource="#Risk"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TransactionManipulation</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VotingOntoSec concept: TransactionManipulation</rdfs:comment>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="#voterData_1">
+  <rdf:type rdf:resource="#VoterData"/>
+  <isHarmedBy rdf:resource="#lackOfAnonymity_1"/>
+  <hasRisk rdf:resource="#riskPrivacy_1"/>
+  <hasAssetCriticality rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.8</hasAssetCriticality>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#lackOfAnonymity_1">
+  <rdf:type rdf:resource="#NoAnonymizationOfVoter"/>
+  <exploitedBy rdf:resource="#deanon_1"/>
+  <givesRiseTo rdf:resource="#riskPrivacy_1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#deanon_1">
+  <rdf:type rdf:resource="#DeanonymizationAttack"/>
+  <affects rdf:resource="#voterData_1"/>
+  <mitigatedBy rdf:resource="#homomorphicEnc_1"/>
+  <hasThreatProbability rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.6</hasThreatProbability>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#homomorphicEnc_1">
+  <rdf:type rdf:resource="#HomomorphicEncryption"/>
+  <reduces rdf:resource="#lackOfAnonymity_1"/>
+  <protects rdf:resource="#voterData_1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#riskPrivacy_1">
+  <rdf:type rdf:resource="#LossOfPrivacy"/>
+  <hasImpactLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">High</hasImpactLevel>
+  <hasLikelihood rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Medium</hasLikelihood>
+  <hasRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.7</hasRiskScore>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#smartContract_1">
+  <rdf:type rdf:resource="#SmartContract"/>
+  <isHarmedBy rdf:resource="#errProneSC_1"/>
+  <hasRisk rdf:resource="#riskSC_1"/>
+  <hasAssetCriticality rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.85</hasAssetCriticality>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#errProneSC_1">
+  <rdf:type rdf:resource="#ErrorProneSmartContract"/>
+  <exploitedBy rdf:resource="#scThreat_1"/>
+  <givesRiseTo rdf:resource="#riskSC_1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#scThreat_1">
+  <rdf:type rdf:resource="#SmartContractThreat"/>
+  <affects rdf:resource="#smartContract_1"/>
+  <mitigatedBy rdf:resource="#formalVer_1"/>
+  <hasThreatProbability rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.65</hasThreatProbability>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#formalVer_1">
+  <rdf:type rdf:resource="#FormalVerification"/>
+  <reduces rdf:resource="#errProneSC_1"/>
+  <protects rdf:resource="#smartContract_1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#riskSC_1">
+  <rdf:type rdf:resource="#DataCompromise"/>
+  <hasImpactLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">High</hasImpactLevel>
+  <hasLikelihood rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Medium</hasLikelihood>
+  <hasRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.75</hasRiskScore>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#consensusNode_1">
+  <rdf:type rdf:resource="#NetworkNode"/>
+  <isHarmedBy rdf:resource="#fakeIdent_1"/>
+  <hasRisk rdf:resource="#riskSybil_1"/>
+  <hasAssetCriticality rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.95</hasAssetCriticality>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#fakeIdent_1">
+  <rdf:type rdf:resource="#FakeIdentitiesCreation"/>
+  <exploitedBy rdf:resource="#sybil_1"/>
+  <givesRiseTo rdf:resource="#riskSybil_1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sybil_1">
+  <rdf:type rdf:resource="#SybilAttack"/>
+  <affects rdf:resource="#consensusNode_1"/>
+  <mitigatedBy rdf:resource="#poa_1"/>
+  <hasThreatProbability rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.75</hasThreatProbability>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#poa_1">
+  <rdf:type rdf:resource="#ProofOfAuthority"/>
+  <reduces rdf:resource="#fakeIdent_1"/>
+  <protects rdf:resource="#consensusNode_1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#riskSybil_1">
+  <rdf:type rdf:resource="#AvailabilityAttack"/>
+  <hasImpactLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">High</hasImpactLevel>
+  <hasLikelihood rdf:datatype="http://www.w3.org/2001/XMLSchema#string">High</hasLikelihood>
+  <hasRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.85</hasRiskScore>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#channel_1">
+  <rdf:type rdf:resource="#CommunicationChannel"/>
+  <isHarmedBy rdf:resource="#insecureComm_1"/>
+  <hasRisk rdf:resource="#riskMitm_1"/>
+  <hasAssetCriticality rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</hasAssetCriticality>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#insecureComm_1">
+  <rdf:type rdf:resource="#InsecureCommunicationControl"/>
+  <exploitedBy rdf:resource="#mitm_1"/>
+  <givesRiseTo rdf:resource="#riskMitm_1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#mitm_1">
+  <rdf:type rdf:resource="#ManInTheMiddle"/>
+  <affects rdf:resource="#channel_1"/>
+  <mitigatedBy rdf:resource="#tls_1"/>
+  <hasThreatProbability rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.8</hasThreatProbability>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tls_1">
+  <rdf:type rdf:resource="#TLSEncryption"/>
+  <reduces rdf:resource="#insecureComm_1"/>
+  <protects rdf:resource="#channel_1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#riskMitm_1">
+  <rdf:type rdf:resource="#DataCompromise"/>
+  <hasImpactLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">High</hasImpactLevel>
+  <hasLikelihood rdf:datatype="http://www.w3.org/2001/XMLSchema#string">High</hasLikelihood>
+  <hasRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.9</hasRiskScore>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#device_1">
+  <rdf:type rdf:resource="#VotingDevice"/>
+  <isHarmedBy rdf:resource="#weakCtrl_1"/>
+  <hasRisk rdf:resource="#riskDev_1"/>
+  <hasAssetCriticality rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.9</hasAssetCriticality>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#weakCtrl_1">
+  <rdf:type rdf:resource="#WeakControlsOnVotingDevice"/>
+  <exploitedBy rdf:resource="#tamper_1"/>
+  <givesRiseTo rdf:resource="#riskDev_1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tamper_1">
+  <rdf:type rdf:resource="#TamperingDeviceSetting"/>
+  <affects rdf:resource="#device_1"/>
+  <mitigatedBy rdf:resource="#tamperResist_1"/>
+  <hasThreatProbability rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.7</hasThreatProbability>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tamperResist_1">
+  <rdf:type rdf:resource="#TamperResistantDevice"/>
+  <reduces rdf:resource="#weakCtrl_1"/>
+  <protects rdf:resource="#device_1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#riskDev_1">
+  <rdf:type rdf:resource="#TransactionManipulation"/>
+  <hasImpactLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Medium</hasImpactLevel>
+  <hasLikelihood rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Medium</hasLikelihood>
+  <hasRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.8</hasRiskScore>
+</owl:NamedIndividual>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#Asset"/>
+    <rdf:Description rdf:about="#Threat"/>
+    <rdf:Description rdf:about="#Vulnerability"/>
+    <rdf:Description rdf:about="#Countermeasure"/>
+    <rdf:Description rdf:about="#SecurityCriteria"/>
+    <rdf:Description rdf:about="#Risk"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+
+</rdf:RDF>
